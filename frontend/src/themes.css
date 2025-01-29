@@ -1,0 +1,22 @@
+/* themes.css */
+.navbar-light {
+    background-color: #fff;
+    color: #000;
+  }
+  
+  .navbar-dark {
+    background-color: #333;
+    color: #fff;
+  }
+  
+  /* Ajouter d'autres styles personnalisés pour le thème dark */
+  body.light-mode {
+    background-color: #fff;
+    color: #000;
+  }
+  
+  body.dark-mode {
+    background-color: #333;
+    color: #fff;
+  }
+  

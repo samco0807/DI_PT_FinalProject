@@ -1,0 +1,27 @@
+ 
+  .about-us-page h1,
+  .about-us-page h2 {
+    color: #6f99c3;
+  }
+  
+  .about-us-page .text-muted {
+    color: #7f8c8d !important;
+  }
+  
+  .about-us-page .btn-primary {
+    background-color: #3498db;
+    border-color: #3498db;
+  }
+  
+  .about-us-page .btn-outline-primary {
+    border-color: #3498db;
+    color: #3498db;
+  }
+  
+  .about-us-page .btn-primary:hover,
+  .about-us-page .btn-outline-primary:hover {
+    background-color: #2980b9;
+    border-color: #2980b9;
+    color: #fff;
+  }
+  

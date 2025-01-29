@@ -1,0 +1,108 @@
+/* homepage.css */
+:root {
+  --past-bg-color: #f8f9fa; 
+  --past-opacity: 0.7;
+
+  --today-bg-color: #d1e7dd; 
+  --today-border-color: #0f5132;
+
+  --future-bg-color: #e7f5ff; 
+  --future-border-color: #0d6efd; 
+}
+
+html[data-bs-theme="dark"] {
+  --past-bg-color: #343a40; /* Gris foncé */
+  --past-opacity: 0.7;
+
+  --today-bg-color: #0f5132; /* Vert foncé */
+  --today-border-color: #d1e7dd; /* Bordure verte claire */
+
+  --future-bg-color: #1e293b; /* Bleu foncé */
+  --future-border-color: #0d6efd; /* Bordure bleue */
+}
+
+.card-title {
+  font-size: 1.25rem;
+}
+
+.card-text {
+  font-size: 0.9rem;
+}
+
+button {
+  min-width: 90px;
+}
+
+button:focus {
+  outline: none;
+  box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.5);
+}
+
+.badge {
+  font-size: 0.9rem;
+  padding: 0.4em 0.6em;
+}
+
+/* Style for event according to time */
+.past {
+  background-color: var(--past-bg-color) !important;
+  opacity: var(--past-opacity) !important;
+  transition: background-color 0.3s ease, opacity 0.3s ease;
+}
+
+.today {
+  background-color: var(--today-bg-color) !important;
+  border: 2px solid var(--today-border-color) !important;
+  transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+
+.future {
+  background-color: var(--future-bg-color) !important;
+  border: 2px dashed var(--future-border-color) !important;
+  transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+
+
+
+.list-group-item {
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.list-group-item:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+h5 {
+  font-size: 1.25rem;
+}
+
+.text-muted {
+  font-size: 0.9rem;
+}
+
+.badge {
+  font-size: 0.9rem;
+}
+
+button {
+  min-width: 100px;
+}
+
+
+.past {
+  background-color: #f8f9fa; /* Gris clair */
+  opacity: 0.7; /* Effet d'assombrissement */
+}
+
+.today {
+  background-color: #d1e7dd; /* Vert clair pour mettre en avant */
+  border: 2px solid #0f5132; /* Bordure verte */
+}
+
+.future {
+  background-color: #e7f5ff; /* Bleu clair */
+  border: 2px dashed #0d6efd; /* Bordure bleue */
+}

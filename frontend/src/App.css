@@ -1,0 +1,80 @@
+/* src/App.css */
+.App {
+  text-align: center;
+}
+
+.App-logo {
+  height: 40vmin;
+  pointer-events: none;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .App-logo {
+    animation: App-logo-spin infinite 20s linear;
+  }
+}
+
+.App-header {
+  background-color: #282c34;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
+}
+
+.App-link {
+  color: #61dafb;
+}
+
+@keyframes App-logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* body.light {
+  --bs-body-bg: white;
+  --bs-body-color: black;
+  --bs-emphasis-color-rgb: rgb(104, 104, 255); 
+  --bg-footer-color: rgb(47, 47, 206);
+  --card-bg-color: white;
+  --card-text-color: black;
+  --bs-navbar-color:rgb(212, 212, 212);
+}
+
+body.dark {
+  --bs-body-bg: black;
+  --bs-body-color: white;
+  --bs-emphasis-color-rgb: rgb(29, 29, 58);
+  --bg-footer-color: rgb(29, 29, 58);
+  --card-bg-color: rgb(34, 34, 34);
+  --card-text-color: white;
+  --bs-navbar-color:rgb(29, 29, 58);
+  --bs-card-bg:rgb(218, 74, 74);
+
+}
+
+.navbar {
+  background-color: var(--bg-navbar-color);
+  color: var(--text-color);
+}
+
+.footer {
+  background-color: var(--bg-footer-color);
+  color: var(--text-color);
+}
+
+.card {
+  background-color: var(--card-bg-color);
+  color: var(--card-text-color);
+} 
+
+.card-body{
+  background-color: var(--bs-card-bg);
+} */
