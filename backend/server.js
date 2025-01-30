@@ -2,7 +2,7 @@
 import express from "express";
 import cors from "cors";
 import router from "./src/routes/eventRoutes.js";
-const port = 3000;
+const port = process.env.PORT || 3000;
 import path from "path";
 import { fileURLToPath } from "url";
 import dotenv from "dotenv";
@@ -18,11 +18,13 @@ app.use(cors());
 app.use(express.json());
 
 // Serve React static files
-app.use(express.static(path.join(__dirname, "../frontend/build")));
+// if (process.env.PROD === "yes") {
+//   app.use(express.static(path.join(__dirname, "../frontend/build")));
 
-app.get("*", (req, res) => {
-  res.sendFile(path.join(__dirname, "../frontend/build", "index.html"));
-});
+//   app.get("*", (req, res) => {
+//     res.sendFile(path.join(__dirname, "../frontend/build", "index.html"));
+//   });
+// }
 
 app.use(router);
 
