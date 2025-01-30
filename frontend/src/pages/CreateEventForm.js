@@ -10,7 +10,7 @@ import { FaCalendarPlus } from "react-icons/fa";
 import "./createeventform.css"
 
 const CreateEventForm = () => {
-  const API_URL = "http://localhost:3000/api/events"; // URL route where event are stored
+  const API_URL = "http://localhost:3000/events"; // URL route where event are stored
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false)
 
