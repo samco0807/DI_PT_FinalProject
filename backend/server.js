@@ -1,4 +1,4 @@
-// backend/server.js
+// root/backend/server.js
 import express from "express";
 import cors from "cors";
 import router from "./src/routes/eventRoutes.js";
@@ -18,13 +18,13 @@ app.use(cors());
 app.use(express.json());
 
 // Serve React static files
-// if (process.env.PROD === "yes") {
-//   app.use(express.static(path.join(__dirname, "../frontend/build")));
+if (process.env.PROD === "yes") {
+  app.use(express.static(path.join(__dirname, "../frontend/build")));
 
-//   app.get("*", (req, res) => {
-//     res.sendFile(path.join(__dirname, "../frontend/build", "index.html"));
-//   });
-// }
+  app.get("*", (req, res) => {
+    res.sendFile(path.join(__dirname, "../frontend/build", "index.html"));
+  });
+}
 
 app.use(router);
 
