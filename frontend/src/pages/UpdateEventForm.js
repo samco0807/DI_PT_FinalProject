@@ -146,13 +146,14 @@ const UpdateEventForm = () => {
             value={eventUpdatedCategoryInput}
             onChange={(e) => setEventUpdatedCategoryInput(e.target.value)}
           >
-            <option>Choose a category</option>
-            <option value="cooking">Cooking</option>
+            <option value="">Choose a category</option>
+            <option value="Cooking">Cooking</option>
             <option value="Farm work">Farm work</option>
-            <option value="Visiting hospital">Visiting hospital</option>
+            <option value="Hospital tour">Hospital tour</option>
             <option value="Barbecue">Barbecue</option>
             <option value="Packaging food">Packaging food</option>
             <option value="Blood donation">Blood donation</option>
+            <option value="Rebuilding kibbutzim">Rebuilding kibbutzim</option>
             <option value="Online volunteering">Online volunteering</option>
           </Form.Select>
         </InputGroup>
