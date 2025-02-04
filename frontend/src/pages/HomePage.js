@@ -55,7 +55,7 @@ const HomePage = () => {
     // function to fetch and displays the events
     const fetchEvents = async () => {
       try {
-        const response = await axios.get(`${API_URL}/event`); // fetch the event from the URL API
+        const response = await axios.get(`${API_URL}/events`); // fetch the event from the URL API
         console.log(API_URL);
 
         setEventTable(response.data); // display events from the table
