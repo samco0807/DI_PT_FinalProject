@@ -33,7 +33,7 @@ const HomePage = () => {
   // initation of states and variables
   const { eventTable, setEventTable } = useContext(EventContext);
   const location = useLocation();
-  const API_URL = process.env.REACT_APP_API_URL || "http://localhost:3000/events"; // Fallback to localhost for local development
+  const API_URL = process.env.REACT_APP_API_URL || "http://localhost:3001"; // Fallback to localhost for local development
 
   // const API_URL = "http://localhost:3000/events"; //  declare and initiate API variable to fetch events
   const navigate = useNavigate();
@@ -55,7 +55,7 @@ const HomePage = () => {
     // function to fetch and displays the events
     const fetchEvents = async () => {
       try {
-        const response = await axios.get(API_URL); // fetch the event from the URL API
+        const response = await axios.get(`${API_URL}/event`); // fetch the event from the URL API
         console.log(API_URL);
 
         setEventTable(response.data); // display events from the table

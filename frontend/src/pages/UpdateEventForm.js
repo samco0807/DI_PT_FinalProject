@@ -10,7 +10,7 @@ const UpdateEventForm = () => {
   const { eventId } = useParams();
   console.log(eventId);
   const navigate = useNavigate();
-  const API_URL = process.env.REACT_APP_API_URL ||`http://localhost:3000/events/${eventId}`;
+  const API_URL = process.env.REACT_APP_API_URL ||`http://localhost:3001`;
   const [eventUpdatedTitleInput, setEventUpdatedTitleInput] = useState("");
   const [eventUpdatedDescriptionInput, setEventUpdatedDescriptionInput] =
     useState("");
@@ -31,7 +31,7 @@ const UpdateEventForm = () => {
     const getEvent = async () => {
       try {
         // fetch the data from the event id url
-        const response = await axios.get(API_URL);
+        const response = await axios.get(`${API_URL}/events/${eventId}`);
         const event = response.data;
         console.log(event);
 
