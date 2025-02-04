@@ -20,6 +20,7 @@ app.use(express.json());
 app.use(router);
 
 // Serve React static files
+const __dirname=path.resolve()
 if (process.env.PROD === "yes") {
   app.use(express.static(path.join(__dirname, "../frontend/build")));
 
