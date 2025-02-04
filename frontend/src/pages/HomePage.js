@@ -33,7 +33,9 @@ const HomePage = () => {
   // initation of states and variables
   const { eventTable, setEventTable } = useContext(EventContext);
   const location = useLocation();
-  const API_URL = "http://localhost:3000/events"; //  declare and initiate API variable to fetch events
+  const API_URL = process.env.REACT_APP_API_URL || "http://localhost:3000/events"; // Fallback to localhost for local development
+
+  // const API_URL = "http://localhost:3000/events"; //  declare and initiate API variable to fetch events
   const navigate = useNavigate();
   // create an object to store the filters
   const [filters, setFilters] = useState({

@@ -10,7 +10,7 @@ const UpdateEventForm = () => {
   const { eventId } = useParams();
   console.log(eventId);
   const navigate = useNavigate();
-  const API_URL = `http://localhost:3000/events/${eventId}`;
+  const API_URL = process.env.REACT_APP_API_URL ||`http://localhost:3000/events/${eventId}`;
   const [eventUpdatedTitleInput, setEventUpdatedTitleInput] = useState("");
   const [eventUpdatedDescriptionInput, setEventUpdatedDescriptionInput] =
     useState("");
