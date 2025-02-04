@@ -2,7 +2,7 @@
 import express from "express";
 import cors from "cors";
 import router from "./src/routes/eventRoutes.js";
-const port = 3000;
+const port = process.env.PORT || 3001;
 import path from "path";
 import { fileURLToPath } from "url";
 import dotenv from "dotenv";
