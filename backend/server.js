@@ -10,8 +10,8 @@ dotenv.config();
 const app = express();
 
 // Resolve __dirname in ES modules
-// const __filename = fileURLToPath(import.meta.url);
-// const __dirname = path.dirname(__filename);
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 // Middleware
 app.use(cors());
@@ -20,12 +20,12 @@ app.use(express.json());
 app.use(router);
 
 // Serve React static files
-const __dirname=path.resolve()
+// const __dirname=path.resolve()
 if (process.env.PROD === "yes") {
   app.use(express.static(path.join(__dirname, "../frontend/build")));
 
   app.get("*", (req, res) => {
-    res.sendFile(path.join(__dirname, "../frontend/build", "index.html"));
+    res.sendFile(path.resolve(__dirname, "../frontend/build", "index.html"));
   });
 }
 
