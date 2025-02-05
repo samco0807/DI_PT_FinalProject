@@ -34,7 +34,7 @@ const HomePage = () => {
   const { eventTable, setEventTable } = useContext(EventContext);
   const location = useLocation();
   const API_URL = process.env.REACT_APP_API_URL || "http://localhost:3001"; // Fallback to localhost for local development
-
+console.log("API_URL: ", API_URL)
   // const API_URL = "http://localhost:3000/events"; //  declare and initiate API variable to fetch events
   const navigate = useNavigate();
   // create an object to store the filters
