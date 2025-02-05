@@ -1,7 +1,7 @@
 // frontend/src/pages/HomePage.js
 import React, { useState, useContext, useEffect } from "react";
 import axios from "axios";
-import { useNavigate, useLocation } from "react-router-dom";
+import { useNavigate, useLocation, useParams } from "react-router-dom";
 import { EventContext } from "../context/EventContext.js";
 // import bootstrap features
 import Card from "react-bootstrap/Card";
@@ -32,9 +32,11 @@ import "./homepage.css";
 const HomePage = () => {
   // initation of states and variables
   const { eventTable, setEventTable } = useContext(EventContext);
+  const { eventId } = useParams();
+
   const location = useLocation();
   const API_URL = process.env.REACT_APP_API_URL || "http://localhost:3001"; // Fallback to localhost for local development
-console.log("API_URL: ", API_URL)
+  console.log("API_URL: ", API_URL);
   // const API_URL = "http://localhost:3000/events"; //  declare and initiate API variable to fetch events
   const navigate = useNavigate();
   // create an object to store the filters
@@ -127,9 +129,11 @@ console.log("API_URL: ", API_URL)
     setDropdownOpen((prev) => !prev);
   };
 
-  const deleteEvent = async (eventId) => {
+  const deleteEvent = async () => {
+    const API_URL_EVENT = `${API_URL}/events/${eventId}`;
+    console.log(eventId);
     try {
-      await axios.delete(`${API_URL}/${eventId}`);
+      await axios.delete(API_URL_EVENT);
       console.log("Deleted event ID:", eventId);
       setEventTable(eventTable.filter((event) => event.event_id !== eventId));
       console.log("Event deleted successfully from the Home");

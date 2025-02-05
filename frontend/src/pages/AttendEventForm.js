@@ -12,6 +12,7 @@ import "react-toastify/dist/ReactToastify.css";
 
 const AttendEventForm = () => {
   const { eventId, attendeeId } = useParams();
+  console.log(eventId)
   const navigate = useNavigate();
   const API_URL = process.env.REACT_APP_API_URL || "http://localhost:3001"; // Fallback to localhost for local development
   // the variables and setter for the attend event form
@@ -26,8 +27,10 @@ const AttendEventForm = () => {
 
   useEffect(() => {
     const fetchAttendees = async () => {
+      const API_URL_ATTENDEES=`${API_URL}/events/${parseInt(eventId)}/attendees`
+      console.log(API_URL_ATTENDEES)
       try {
-        const response = await axios.get(`${API_URL}/events/${parseInt(eventId)}/attendees`);
+        const response = await axios.get(API_URL_ATTENDEES);
         console.log(response.data);
         setAttendeesEmail(
           response.data.map((attendee) => attendee.attendee_email)
@@ -60,7 +63,7 @@ const AttendEventForm = () => {
     }
     try {
       // add an attendee to the database send the input values to the backend
-      const createANewAttendee = await axios.post(`${API_URL}/events/${eventId}/attendees/${attendeeId}`, {
+      const createANewAttendee = await axios.post(`${API_URL}/events/${eventId}/attendees`, {
         firstName: firstNameInput,
         lastName: lastNameInput,
         email: emailInput,
