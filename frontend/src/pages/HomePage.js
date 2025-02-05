@@ -129,9 +129,14 @@ const HomePage = () => {
     setDropdownOpen((prev) => !prev);
   };
 
-  const deleteEvent = async () => {
+  const deleteEvent = async (eventId) => {
+    if (!eventId) {
+      console.error("Event ID is undefined!");
+      return;
+    }
     const API_URL_EVENT = `${API_URL}/events/${eventId}`;
-    console.log(eventId);
+    console.log("Event ID:", eventId);
+    console.log("API_URL_EVENT: ", API_URL_EVENT);
     try {
       await axios.delete(API_URL_EVENT);
       console.log("Deleted event ID:", eventId);
@@ -478,6 +483,7 @@ const HomePage = () => {
                         variant="danger"
                         className="flex-grow-1 d-flex align-items-center"
                         onClick={() => {
+                          console.log("Event object:", event);
                           if (
                             window.confirm("Are you sure to delete this event?")
                           ) {
