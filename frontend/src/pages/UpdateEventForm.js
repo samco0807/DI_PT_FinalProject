@@ -76,7 +76,7 @@ const UpdateEventForm = () => {
     });
     try {
       // send the updated input in the url
-      const response = await axios.put(API_URL, {
+      const response = await axios.put(`${API_URL}/events/${eventId}`, {
         eventTitle: eventUpdatedTitleInput,
         eventDescription: eventUpdatedDescriptionInput,
         eventCategory: eventUpdatedCategoryInput,

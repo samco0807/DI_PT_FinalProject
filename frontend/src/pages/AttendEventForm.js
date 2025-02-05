@@ -11,7 +11,7 @@ import "./attendeventform.css";
 import "react-toastify/dist/ReactToastify.css";
 
 const AttendEventForm = () => {
-  const { eventId } = useParams();
+  const { eventId, attendeeId } = useParams();
   const navigate = useNavigate();
   const API_URL = process.env.REACT_APP_API_URL || "http://localhost:3001"; // Fallback to localhost for local development
   // the variables and setter for the attend event form
@@ -60,7 +60,7 @@ const AttendEventForm = () => {
     }
     try {
       // add an attendee to the database send the input values to the backend
-      const createANewAttendee = await axios.post(API_URL, {
+      const createANewAttendee = await axios.post(`${API_URL}/events/${eventId}/attendees/${attendeeId}`, {
         firstName: firstNameInput,
         lastName: lastNameInput,
         email: emailInput,

@@ -42,12 +42,11 @@ const ParticipantsEventPage = () => {
   }, [eventId]);
 
   const deleteAttendeeFromEvent = async (attendeeId) => {
-    const API_URL_ATTENDEE_ID = `http://localhost:3000/events/${eventId}/attendees/${attendeeId}`;
     console.log(attendeeId)
   console.log("Params:", { eventId });
 
     try {
-      await axios.delete(`${API_URL_ATTENDEE_ID}`);
+      await axios.delete(`${API_URL}/events/${eventId}/attendees/${attendeeId}`);
       setAttendeesTable(
         attendeesTable.filter((attendee) => attendee.attendee_id !== attendeeId)
       );
