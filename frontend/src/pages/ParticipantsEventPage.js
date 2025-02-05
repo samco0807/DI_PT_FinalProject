@@ -10,13 +10,12 @@ const ParticipantsEventPage = () => {
   const [eventsTable, setEventsTable] = useState({});
   const { eventId, attendeeId } = useParams();
   console.log("Params:", { eventId, attendeeId });
-  const API_URL_EVENT_ID = `http://localhost:3000/events/${eventId}`;
-  const API_URL_ATTENDEES = `http://localhost:3000/events/${eventId}/attendees`;
+  const API_URL = process.env.REACT_APP_API_URL || "http://localhost:3001"; // Fallback to localhost for local development`;
 
   useEffect(() => {
     const fetchEventData = async () => {
       try {
-        const response = await axios.get(API_URL_EVENT_ID);
+        const response = await axios.get(`${API_URL}/events/${eventId}`);
         console.log(response.data);
         setEventsTable(response.data);
       } catch (error) {
@@ -27,7 +26,7 @@ const ParticipantsEventPage = () => {
     const fetchAttendees = async () => {
       try {        
         // fetch the data from the url with all the attendees for a specific event
-        const response = await axios.get(API_URL_ATTENDEES);
+        const response = await axios.get(`${API_URL}/events/${eventId}/attendees`);
         // const responseEvent = await axios.get(API_URL_EVENT_ID);
         
         console.log(response.data);

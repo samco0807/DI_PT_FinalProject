@@ -10,7 +10,7 @@ import { FaCalendarPlus } from "react-icons/fa";
 import "./createeventform.css"
 
 const CreateEventForm = () => {
-  const API_URL = "http://localhost:3000/events"; // URL route where event are stored
+  const API_URL = process.env.REACT_APP_API_URL || "http://localhost:3001"; // Fallback to localhost for local development
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false)
 
@@ -46,7 +46,7 @@ const CreateEventForm = () => {
     }
 
     try {
-      const response = await axios.post(API_URL, {
+      const response = await axios.post(`${API_URL}/events`, {
         eventTitle: formData.title,
         eventDescription: formData.description,
         eventCategory: formData.category,
