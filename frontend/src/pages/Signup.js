@@ -1,22 +1,33 @@
+// root/frontend/src/pages/pages/SignUp.js
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import Container from "react-bootstrap/Container";
 import InputGroup from "react-bootstrap/InputGroup";
 import Col from "react-bootstrap/Col";
 import Row from "react-bootstrap/Row";
+import Alert from "react-bootstrap/Alert";
+
+import { useAuth } from "../context/AuthContext";
+import axios from "axios";
 
 const SignUpForm = () => {
+  const API_URL = process.env.REACT_APP_API_URL || "http://localhost:3001"; // Fallback to localhost for local development
+  const navigate = useNavigate();
+
+  const { handleLogin } = useAuth();
   const [formData, setFormData] = useState({
-    username: "",
+    firstName: "",
+    lastName: "",
     email: "",
     password: "",
     confirmPassword: "",
-    fullName: "",
     phoneNumber: "",
-    category: "",
-    termsAccepted: false,
   });
+  const [error, setError] = useState(null);
+  const [loading, setLoading] = useState(null);
+  const [success, setSuccess] = useState(false); // initiate a success message variable
 
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
@@ -26,14 +37,51 @@ const SignUpForm = () => {
     }));
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // Logique pour gérer l'inscription
+    setError(null);
+
+    if (formData.password !== formData.confirmPassword) {
+      setError("Passwords do not match");
+      setLoading(false);
+      return;
+    }
+
+    try {
+      setLoading(true);
+      const res = await axios.post(`${API_URL}/register`, formData, {
+        withCredentials: true,
+      });
+      const { token, role } = res.data;
+      handleLogin(token, role);
+
+      setFormData({
+        firstName: "",
+        lastName: "",
+        email: "",
+        password: "",
+        confirmPassword: "",
+        phoneNumber: "",
+      });
+      setTimeout(() => navigate("/home"), 1000); // Redirect 2 secondes after success
+    } catch (error) {
+      setError(error.response?.data?.message || "registration failed");
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
     <Container>
       <h2>Register</h2>
+
+      {success && (
+        <Alert variant="success" onClose={() => setSuccess(false)} dismissible>
+          You registered successfully!
+        </Alert>
+      )}
+      {error && <Alert variant="danger">Registration failed</Alert>}
+
       <Form onSubmit={handleSubmit} className="col-md-5 mx-auto">
         <InputGroup className="mb-3">
           <InputGroup.Text id="basic-addon1">First name</InputGroup.Text>
@@ -57,17 +105,7 @@ const SignUpForm = () => {
             onChange={handleChange}
           />
         </InputGroup>
-        <InputGroup className="mb-3">
-          <InputGroup.Text id="basic-addon1">Username</InputGroup.Text>
-          <Form.Control
-            aria-label="username"
-            aria-describedby="basic-addon1"
-            name="username"
-            type="text"
-            value={formData.username}
-            onChange={handleChange}
-          />
-        </InputGroup>
+
         <InputGroup className="mb-3">
           <InputGroup.Text id="basic-addon1">Email</InputGroup.Text>
           <Form.Control
@@ -85,7 +123,7 @@ const SignUpForm = () => {
             aria-label="password"
             aria-describedby="basic-addon1"
             name="password"
-            type="text"
+            type="password"
             value={formData.password}
             onChange={handleChange}
           />
@@ -96,7 +134,7 @@ const SignUpForm = () => {
             aria-label="password"
             aria-describedby="basic-addon1"
             name="confirmPassword"
-            type="text"
+            type="password"
             value={formData.confirmPassword}
             onChange={handleChange}
           />
@@ -107,51 +145,14 @@ const SignUpForm = () => {
             aria-label="phoneNumber"
             aria-describedby="basic-addon1"
             name="phoneNumber"
-            type="number"
+            type="tel"
             value={formData.phoneNumber}
             onChange={handleChange}
           />
         </InputGroup>
 
-        {/* Radio select for particpants whether volunteer or Organiser */}
-        <fieldset>
-          <Form.Group as={Row} className="mb-3">
-            <Form.Label as="legend" column sm={2}>
-              I am
-            </Form.Label>
-            <Col sm={10}>
-              <Form.Check
-              inline
-                type="radio"
-                label="Volunteer"
-                name="formHorizontalRadios"
-                id="formHorizontalRadios1"
-              />
-              <Form.Check
-              inline
-                type="radio"
-                label="Organiser"
-                name="Organiser"
-                id="organiser"
-              />
-            </Col>
-          </Form.Group>
-        </fieldset>
-
-        <Form.Group controlId="formTerms">
-          <Form.Check
-          inline
-            type="checkbox"
-            name="termsAccepted"
-            label="I accept terms and conditions"
-            checked={formData.termsAccepted}
-            onChange={handleChange}
-            required
-          />
-        </Form.Group>
-
-        <Button variant="primary" type="submit">
-          Sign up
+        <Button variant="primary" type="submit" disabled={loading}>
+          {loading ? "Signing up ..." : "Sign up"}
         </Button>
       </Form>
     </Container>

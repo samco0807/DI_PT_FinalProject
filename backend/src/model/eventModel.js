@@ -13,14 +13,20 @@ export const _fetchAllEvents = () => {
         "event_location",
         "event_attendees_number",
         "event_datetime",
+        "organizer_id",
         db.raw("TO_CHAR(event_datetime, 'YYYY-MM-DD') AS event_date"),
-        db.raw("TO_CHAR(event_datetime, 'HH24:MI') AS event_time")
+        db.raw("TO_CHAR(event_datetime, 'HH24:MI') AS event_time"),
+        "users.user_firstname",
+        "users.user_lastname",
+        "users.user_phonenumber"
       )
-      .orderBy("event_date", "desc");
+      // .orderBy("event_date", "desc")
+      .leftJoin("users", "events.organizer_id", "=", "users.user_id");
     console.log("Model: All events retrieved successfully");
     return gotAllEvents;
   } catch (error) {
     console.error("Failed to retrived all events", error);
+    throw error;
   }
 };
 
@@ -49,15 +55,21 @@ export const _createEvent = ({
   event_category: event_category,
   event_location: event_location,
   event_datetime: event_datetime,
+  event_attendees_number,
+  organizer_id,
 }) => {
   try {
-    const createdEvent = db("events").insert({
-      event_title: event_title,
-      event_description: event_description,
-      event_category: event_category,
-      event_location: event_location,
-      event_datetime: event_datetime,
-    });
+    const createdEvent = db("events")
+      .insert({
+        event_title: event_title,
+        event_description: event_description,
+        event_category: event_category,
+        event_location: event_location,
+        event_datetime: event_datetime,
+        event_attendees_number,
+        organizer_id: organizer_id,
+      })
+      .returning("*");
     console.log("Model: event created successfully");
     return createdEvent;
   } catch (error) {

@@ -1,17 +1,21 @@
-import React, { useContext } from "react";
+// root/frontend/src/components/Navbar.js
+import React, { useContext, useEffect } from "react";
+import { Link } from "react-router-dom";
+import { ThemeContext } from "../context/ThemeContext.js";
+import { useAuth } from "../context/AuthContext.js";
 import Container from "react-bootstrap/Container";
 import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
-import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
-import { Link } from "react-router-dom";
-import { ThemeContext } from "../context/ThemeContext.js";
 import { BsSun, BsFillMoonFill } from "react-icons/bs";
-import { BiSearch } from "react-icons/bi";
-import { FaUserCircle } from "react-icons/fa";
 
 const NavBar = () => {
   const { theme, toggleTheme } = useContext(ThemeContext);
+  const { token, role, handleLogout } = useAuth();
+
+  useEffect(() => {
+    console.log("Navbar - Token:", token, "Role: ", role);
+  }, [token, role]);
 
   return (
     <Navbar
@@ -28,14 +32,18 @@ const NavBar = () => {
         </Navbar.Brand>
 
         {/* TOGGLE MENU (Responsive) */}
-        <Navbar.Toggle aria-controls="basic-navbar-nav" />
+        <Navbar.Toggle aria-controls="responsive-navbar-nav" />
 
         <Navbar.Collapse id="basic-navbar-nav">
-          {/* MENU LINKS */}
+          {/* MENU LEFT LINKS */}
           <Nav className="me-auto align-items-center">
-            <Nav.Link as={Link} to="/createevent" className="me-3">
-              Create Event
-            </Nav.Link>
+            {/* Always display About Us and Contact */}
+            {token && role === "organizer" && (
+              <Nav.Link as={Link} to="/createevent" className="me-3">
+                Create Event
+              </Nav.Link>
+            )}
+
             <Nav.Link as={Link} to="/aboutus" className="me-3">
               About Us
             </Nav.Link>
@@ -44,34 +52,55 @@ const NavBar = () => {
             </Nav.Link>
           </Nav>
 
-          {/* USER MENU */}
+          {/* MENU RIGHT LINKS */}
           <Nav className="align-items-center">
-            <Nav.Link as={Link} to="/login" className="me-3">
-              Login
-            </Nav.Link>
-            <Nav.Link as={Link} to="/signup" className="me-3">
-              Sign Up
-            </Nav.Link>
-            <Nav.Link as={Link} to="/myprofile">
-              <FaUserCircle size={28} />
-            </Nav.Link>
-            {/* THEME TOGGLE BUTTON */}
-            <Button
-              onClick={toggleTheme}
-              className="ms-3"
-              style={{
-                background: "transparent",
-                border: "none",
-                fontSize: "1.5rem",
-              }}
-            >
-              {theme === "dark" ? (
-                <BsSun style={{ color: "#ffc107" }} />
-              ) : (
-                <BsFillMoonFill style={{ color: "#000" }} />
-              )}
-            </Button>
+            {/* Option for connected user */}
+            {token && role === "organizer" ? (
+              <>
+                <Nav.Link as={Link} to="/myprofile" className="me-3">
+                  My Profile
+                </Nav.Link>
+                <Button
+                  onClick={handleLogout}
+                  variant="outline-danger"
+                  className="me-3"
+                >
+                  Logout
+                </Button>
+              </>
+            ) : (
+              <>
+                {/* Options for non logged in users */}
+                {!token && (
+                  <>
+                    <Nav.Link as={Link} to="/login" className="me-3">
+                      Login
+                    </Nav.Link>
+                    <Nav.Link as={Link} to="/signup" className="me-3">
+                      Sign Up
+                    </Nav.Link>
+                  </>
+                )}
+              </>
+            )}
           </Nav>
+
+          {/* THEME TOGGLE BUTTON */}
+          <Button
+            onClick={toggleTheme}
+            className="ms-3"
+            style={{
+              background: "transparent",
+              border: "none",
+              fontSize: "1.5rem",
+            }}
+          >
+            {theme === "dark" ? (
+              <BsSun style={{ color: "#ffc107" }} />
+            ) : (
+              <BsFillMoonFill style={{ color: "#000" }} />
+            )}
+          </Button>
         </Navbar.Collapse>
       </Container>
     </Navbar>

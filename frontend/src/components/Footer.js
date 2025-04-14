@@ -1,8 +1,8 @@
+// root/frontend/src/components/footer.js
 import React, { useContext } from "react";
 import { ThemeContext } from "../context/ThemeContext";
 import { FaFacebook, FaInstagram, FaTiktok } from "react-icons/fa";
 import { FaXTwitter } from "react-icons/fa6";
-
 
 const Footer = () => {
   const { theme } = useContext(ThemeContext);
@@ -25,7 +25,7 @@ const Footer = () => {
       </div>
       <div style={{ marginTop: "0.5rem" }}>
         <a
-          href="https://facebook.com"
+          href="https://.com"
           target="_blank"
           rel="noopener noreferrer"
           style={{ color: theme === "dark" ? "#f8f9fa" : "#343a40", margin: "0 10px" }}
@@ -33,7 +33,7 @@ const Footer = () => {
           <FaFacebook size={20} />
         </a>
         <a
-          href="https://x.com"
+          href="http://"
           target="_blank"
           rel="noopener noreferrer"
           style={{ color: theme === "dark" ? "#f8f9fa" : "#343a40", margin: "0 10px" }}
@@ -41,7 +41,7 @@ const Footer = () => {
           <FaXTwitter size={20} />
         </a>
         <a
-          href="https://instagram.com"
+          href="http://"
           target="_blank"
           rel="noopener noreferrer"
           style={{ color: theme === "dark" ? "#f8f9fa" : "#343a40", margin: "0 10px" }}
@@ -49,7 +49,7 @@ const Footer = () => {
           <FaInstagram size={20} />
         </a>
         <a
-          href="https://tiktok.com"
+          href="http://"
           target="_blank"
           rel="noopener noreferrer"
           style={{ color: theme === "dark" ? "#f8f9fa" : "#343a40", margin: "0 10px" }}

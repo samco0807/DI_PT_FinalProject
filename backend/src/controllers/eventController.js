@@ -56,6 +56,7 @@ export const createEvent = async (req, res) => {
     return res.status(400).json({ message: "All fields are required." });
   }
   try {
+    const organizerId = req.user.id;
     const newEvent = {
       event_title: eventTitle,
       event_description: eventDescription,
@@ -63,6 +64,7 @@ export const createEvent = async (req, res) => {
       event_location: eventLocation,
       event_datetime: eventDatetime,
       event_attendees_number: eventAttendeesNumber,
+      organizer_id: organizerId,
     };
     console.log("Controller: request to create event:", newEvent);
     const createdEvent = await _createEvent(newEvent);

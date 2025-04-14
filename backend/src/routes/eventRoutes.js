@@ -15,13 +15,16 @@ import {
   deleteAllAttendees,
   deleteAttendeeAndUpdateEvent,
 } from "../controllers/attendeeController.js";
+import { authenticateJWT } from "../middleware/authMiddleware.js";
+
 import { Router } from "express";
 
 const router = Router();
 
+// routes for events
 router.get("/events", getAllEvents);
 router.get("/events/:eventId", getEvent);
-router.post("/events", createEvent);
+router.post("/events", authenticateJWT, createEvent);
 router.put("/events/:eventId", updateEvent);
 router.delete("/events", deleteAllEvents);
 router.delete("/events/:eventId", deleteEvent);
